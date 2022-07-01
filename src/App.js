@@ -1,10 +1,10 @@
-import bootstrap from 'bootstrap';
 import './App.css';
+import TodoComponents from './components/TodoComponents';
 
 function App() {
   return (
-    <div className="App container-fluid">
-      <h1>ññlll</h1>
+    <div className="App">
+      <TodoComponents />
     </div>
   );
 }
