@@ -1,57 +1,78 @@
-.wrap{
+.wrap {
     background-color: rgb(230, 230, 230);
     height: 100vh;
     min-width: 350px;
 }
-h1{
+
+h1 {
     font-size: 80px !important;
-    color: rgb(105, 105, 105) !important;
-} 
-.bordee{
-    border: 1px solid lightgrey !important; 
-}
-input{
-    background-color: rgb(240, 240, 240)!important;
-    margin-top: 20px;
-}
-.formulario{
-    background-color: rgb(240, 240, 240);
-    box-shadow: 0px 11px 6px -2px rgba(0,0,0,0.44);
-    min-width: 300px;
-    
-}
-.todo-left{
-    font-size: smaller;
-}
-.hoj1{
-    background-color: rgb(240, 240, 240);
-    box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.29) ;
-    min-width: 290;
-}
-.hoj2{
-    background-color: rgb(240, 240, 240);
-    box-shadow: 1px 2px 2px 0px rgba(0,0,0,0.29) ;
-    min-width: 290;
-}
-.x{
-    display: none;
-}
-.bordee:hover > .x {
-    display:block;
-}
-.btn {
-    width: 1px;
-    height: 1px;
+    color: rgb(177, 172, 172) !important;
 }
 
-.xd{
+input {
+    background-color: rgb(240, 240, 240) !important;
+    margin-top: 20px;
+}
+
+.formulario {
+    background-color: rgb(240, 240, 240);
+    box-shadow: 0px 11px 6px -2px rgba(0, 0, 0, 0.44);
+    min-width: 300px;
+}
+.completed-todo {
+    background-color: aqua;
+    color: rgb(184, 187, 186);
+    position: relative;
+    
+}
+
+
+.completed-todo::after{
+    content: ' \221A \221A';
+    left: 75%;
+    position: absolute;
+    color: rgb(149, 200, 72);
+}
+.todo-left {
+    font-size: smaller;
+}
+
+.hoj1 {
+    background-color: rgb(240, 240, 240);
+    box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.29);
+    min-width: 290;
+}
+
+.hoj2 {
+    background-color: rgb(240, 240, 240);
+    box-shadow: 1px 2px 2px 0px rgba(0, 0, 0, 0.29);
+    min-width: 290;
+}
+
+.todo-icono {
+    font-size: 12px;
+    padding: 1px;
+    margin: 0;
+    outline: none;
+    border: none;
+    color: rgb(125, 125, 125);
+}
+
+.x {
     display: none;
+    position: relative;
 }
-.bordee:hover > .xd {
-    display:block;
+
+.bordee:hover>.x {
+    display: block;
+    position: absolute;
+    left: 68%;
 }
-.btn  {
-    color: rgb(255, 0, 119);
-    width: 1px;
-    height: 1px;
+
+.botones-funcionales .btn{
+   display: flex;
+   justify-content: center;
+    height: 10px;
+    align-items: center;
+    font-size: 10px;
 }
