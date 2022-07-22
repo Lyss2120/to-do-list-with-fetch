@@ -1,9 +1,11 @@
 import React from 'react'
 
-function TodosLeft(props) {
+
+
+function TodosLeft({tareas}) {
   return (
     <tr>  
-      <td className="card-text"><small className="text-muted">{props.tareas.length} todos left</small></td>
+      <td className="card-text"><small className="text-muted">{tareas.filter((tarea) => !tarea.done) .length} todos left</small></td>
     </tr>    
   )
   

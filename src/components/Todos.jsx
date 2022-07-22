@@ -2,13 +2,18 @@ import React from 'react'
 import { FaTimes } from 'react-icons/fa';
 
 
-function Todos({ deleteTareaById, id, text, done }) {
+function Todos({ deleteTareaById, completarTareaById, id, text, done }) {
     console.log('esta es label', text,'esta es id', id,'esta es done', done);
 
     return (
         <tr className='bordee py-3'>
-            <td className={done ? 'completed-todo' : 'uncompleted-todo'}>{text} </td>
-            <td className='x' onClick={() => deleteTareaById(id)}>
+            <td 
+            className={done ? 'completed-todo' : 'uncompleted-todo'}
+            onClick={() => completarTareaById(id)} > 
+                {text} 
+            </td>
+            <td className='x' 
+            onClick={() => deleteTareaById(id)}>
                 <FaTimes className='todo-icono' />
             </td>
         </tr>

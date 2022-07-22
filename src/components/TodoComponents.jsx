@@ -11,20 +11,19 @@ function TodoComponents() {
     const url = 'http://assets.breatheco.de/apis/fake/todos/user/';
     const user = 'lys';
     const initialSt = [{ id: 0, label: "Initial Task", done: true }];
+   
     const [tareas, setTareas] = useState([initialSt]);
     const [input, setInput] = useState('');
 
     useEffect(() => {
         getTareas()
     }, [])
-    ///*******funciona ok get******** validar si existe****** input = user, PROMPT agregar user
+
     fetch(`${url}${user}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: [] //y un  [tareas] PARA AGREGAR  CAMBIOS A LA API
-
-    })
-
+        body: []
+    })//funciona!!! este primer fetch agrega el usuario que esta en la variable user
     const getTareas = () => {
         fetch(`${url}${user}`, {
             method: 'GET',
@@ -43,19 +42,17 @@ function TodoComponents() {
                 // if(body.msg){
                 // llamar a funcion con post para agregar el cambio
                 //tareas borradas o agregadas}
-
-
                 return setTareas(body)
             })
-
             .catch((error) => { console.log(error) });
-
-
-    }//podria ser async 
+    }//funciona!!! trae las tareas de la api. tmb podria ser async 
+    const getId = () => {
+        return tareas.length + 1;
+    };//crea ids según index
     const updateTareas = (tareas) => {
         fetch(`${url}${user}`, {
-            method: 'PUT', 
-            body: JSON.stringify([tareas]), //y un  [tareas] PARA AGREGAR  CAMBIOS A LA API
+            method: 'PUT',
+            body: JSON.stringify([tareas]), //se agrega [tareas] PARA AGREGAR CADA CAMBIO A LA API
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -69,20 +66,37 @@ function TodoComponents() {
             .catch((error) => {
                 console.log(error)
             })
-    };
-    //******para borrar todas las tareas de un usuario funciona ok!!******
+    };// funciona!!! actualiza el estado del array de tareas se hayan modificado o borrado
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const newTareas = tareas.concat({ id: getId(), label: input, done: false })
+        setTareas(newTareas);
+        setInput('');
+        updateTareas(newTareas);
+        console.log('Creado con exito!', newTareas);
+    };// falta dejar input vacio setinput'' ?
+    const completarTareaById = (id) => {
+        const newTareas = [...tareas];
+        const tarea = newTareas.find((tarea) => tarea.id === id);
+        tarea.done = !tarea.done;
+        setTareas(newTareas);
+        updateTareas(newTareas);
+        console.log('tarea completada');
+    }; // funciona!!! toggler para poner tareas completadas
+    const deleteTareaById = (id) => {
+        const tareasActualizadas = tareas.filter((tarea) => tarea.id !== id);
+        setTareas(tareasActualizadas);
+        updateTareas(tareasActualizadas);
+        console.log('Eliminado!');
+    };// funciona!!!  se incluye la funcion updateTareas dentro de delete y tmb en handlesub para actualizar lo borrado o agregado
     const clearAll = () => {
         fetch('http://assets.breatheco.de/apis/fake/todos/user/lys', {
             method: 'PUT',
-            body: [
-                //   enviar lo del input y manejar el submit, guardar en settareas, limpiar setinput
-            ],
+            body: [],
             headers: {
                 'Content-type': 'application/json'
             }
-
         }
-
             .then((response) => {
 
                 console.log('success este es el response', response.status, JSON.stringify(response))
@@ -93,30 +107,7 @@ function TodoComponents() {
                 console.log(error)
             })
         )
-    }
-    // const deleteTareasByIdAsync = (id) => {
-    //     fetch(`${url}lys`, {
-    //         method: 'PUT',
-    //         body: deleteTareaById(),
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-
-    //         .then((response) => {
-    //             console.log('eliminado con fetch', response.status)
-    //             return response.json()
-    //         })
-
-    //         .then((data) => {
-
-    //             setTareas(data);
-    //         })
-
-
-    //         .catch((error) => { console.error(error) })
-    // }//casi funciona.............
-
+    }; //funciona!!! borra todas las tareas, pero no el usuario  
     const deleteUsersAsync = () => {
         fetch(`${url}lys`, {
             method: 'DELETE',
@@ -129,25 +120,7 @@ function TodoComponents() {
                 setTareas(data);
             })
             .catch((error) => { console.error(error) })
-    } // borra el usuario con sus tareas funciona!!!
-    const getId = () => {
-        return tareas.length + 1;
-    }
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const newTareas = tareas.concat({ id: getId(), label: input, done: false })
-        setTareas(newTareas);
-        setInput('');
-        updateTareas(newTareas);
-        console.log('Creado con exito!', newTareas);
-    }
-    const deleteTareaById = (id) => {
-        const tareasActualizadas = tareas.filter((tarea) => tarea.id !== id);
-        setTareas(tareasActualizadas);
-        updateTareas(tareasActualizadas);
-        console.log('Eliminado!');
-
-    }//se puede incluir este codigo dentro del delete con fetch put?? para llamar solo una vez a delete
+    }; //funciona!!! borra el usuario con sus tareas 
 
 
     return (
@@ -174,7 +147,7 @@ function TodoComponents() {
                                                     text={tarea.label}
                                                     done={tarea.done}
                                                     deleteTareaById={deleteTareaById}
-                                                />
+                                                    completarTareaById={completarTareaById} />
                                             )
                                         })
                                     }
