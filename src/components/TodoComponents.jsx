@@ -33,14 +33,11 @@ function TodoComponents() {
 
         })
             .then((response) => {
-
                 console.log('response de getTareas', response.status, JSON.stringify(response))
                 return response.json()
             })
             .then((body) => {
                 console.log('este es el body', body)
-                // if(body.msg){
-                // llamar a funcion con post para agregar el cambio
                 //tareas borradas o agregadas}
                 return setTareas(body)
             })
@@ -139,7 +136,7 @@ function TodoComponents() {
                                 <tbody>
                                     {
                                         tareas.map((tarea, i) => {
-                                            console.log('este si es el i', i);
+                                            console.log('este es el i', i, tarea.id);
                                             return (
                                                 <Todos
                                                     key={i}//key podria ser el index o i como parametro adicional en el map
@@ -157,7 +154,6 @@ function TodoComponents() {
 
                                     <div className="botones-funcionales d-grid gap-1 col mx-2">
                                         <button className="btn btn-danger text-black btn-sm text-center" type="button" onClick={deleteUsersAsync}>borrar usuario</button>
-                                        <button className="btn btn-info btn-sm" type="button" onClick=''>agregar usuario</button>
                                         <button className="btn btn-warning btn-sm" type="button" onClick={clearAll}>borrar todas las tareas</button>
 
                                     </div>

@@ -3,7 +3,7 @@ import { FaTimes } from 'react-icons/fa';
 
 
 function Todos({ deleteTareaById, completarTareaById, id, text, done }) {
-    console.log('esta es label', text,'esta es id', id,'esta es done', done);
+    // console.log('esta es label', text,'esta es id', id,'esta es done', done);
 
     return (
         <tr className='bordee py-3'>
