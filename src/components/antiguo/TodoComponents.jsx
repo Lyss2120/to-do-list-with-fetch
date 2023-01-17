@@ -4,11 +4,17 @@ import Todos from './Todos';
 import TodoTitulo from './TodoTitulo';
 import TodoForm from './TodoForm';
 import TodosLeft from './TodosLeft';
+/*  - Haz que tu TODO List se sincronice con la API de backend cada vez que se agregue o elimine una tarea.
+    -Agregue un botón de limpieza de todas las tareas que eliminará toda la lista del servidor y actualizará la lista vacía en el front-end.
 
+    -Después de que la lista se carga vacía por primera vez (componentDidMount): debes obtener (GET) los datos de la API y actualizar las tareas cuando la información finalmente llegue.
+    -Cuando se agrega una nueva tarea: debes PONER (PUT) la nueva lista en el servidor. updateTareas
+    -Cuando se elimina una tarea: Debes PONER (PUT) la nueva lista en el servidor.
+ */
 // SALUDO USUARIO Y ELIMINAR USUARIO Y TODAS SUS TAREAS...
 function TodoComponents() {
 
-    const url = 'http://assets.breatheco.de/apis/fake/todos/user/';
+    const url = 'https://assets.breatheco.de/apis/fake/todos/user/';
     const user = 'lys';
     const initialSt = [{ id: 0, label: "Initial Task", done: true }];
    
@@ -19,12 +25,19 @@ function TodoComponents() {
         getTareas()
     }, [])
 
-    fetch(`${url}${user}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: []
-    })//funciona!!! este primer fetch agrega el usuario que esta en la variable user
+//funciona!!! este primer fetch agrega el usuario que esta en la variable user
     const getTareas = () => {
+
+        fetch(`${url}${user}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: []
+        })
+        .then((response) => {
+            console.log('response de getTareas', response.status, JSON.stringify(response))
+            return response.json()
+        })        
+        
         fetch(`${url}${user}`, {
             method: 'GET',
             headers: {
