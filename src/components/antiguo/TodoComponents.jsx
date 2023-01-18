@@ -12,6 +12,27 @@ import TodosLeft from './TodosLeft';
     -Cuando se elimina una tarea: Debes PONER (PUT) la nueva lista en el servidor.
  */
 // SALUDO USUARIO Y ELIMINAR USUARIO Y TODAS SUS TAREAS...
+
+
+// .then((response) => {
+//     // console.log(response);
+//     response.json();
+//     if (response.status === 400) {
+//         console.log({ user });
+//         alert("este usuario ya fue creado: " + user);
+//         getTareas()
+//     }
+//     else if (response.status === 200) {
+//         console.log({ user });
+//         setLoggedIn(true)
+//         getTareas()
+//         usuarioCreado()
+//     }
+// })
+
+
+
+
 function TodoComponents() {
 
     const url = 'https://assets.breatheco.de/apis/fake/todos/user/';
