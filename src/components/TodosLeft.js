@@ -1,11 +1,11 @@
 import React from 'react';
 
 
-function TodosLeft(props) {
+function TodosLeft({ tareas }) {
   return (
-    <tr>  
-      <th className="card-text"><small className="text-muted">{props.tareas?.length} todos left</small></th>
-    </tr>    
+    <li className='list-group-item'>  
+      <span className="card-text"><small className="text-muted">You have {tareas.length} todos left.</small></span>
+    </li>    
   )
   
 }

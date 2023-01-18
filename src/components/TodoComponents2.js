@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import './styles/TodoComponents.css';
-// import Todos from './Todos';
+import Todos from './Todos';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TodoTitulo from './TodoTitulo';
 import TodoForm from './TodoForm';
+import TodosLeft from './TodosLeft';
 // import TodosLeft from './TodosLeft';
 
 
 function TodoComponents2() {
     const url = "https://assets.breatheco.de/apis/fake/todos/user/";
-    const [user, setUser] = useState('lalag');
+    const [user, setUser] = useState('Lys');
     const [tareas, setTareas] = useState([]);
     const [input, setInput] = useState('');
     const [loggedIn, setLoggedIn] = useState(true); //user viene logueado
@@ -73,8 +74,8 @@ function TodoComponents2() {
     // console.log(typeof tareas);
 
     console.log(user);
-    //createuser tiene que crear un usuario, alertar que ya se creo y si el usuario tya esta creado (lo sabe por el 
-    // error 400 de post) tiene que avisar que el usuario esta creado y trae nuevamente sus tareas por si hubo algun error
+    //createuser tiene que crear un usuario, alertar que ya se creo y si el usuario ya esta creado (lo sabe por el 
+    // error 400 de post) tiene que avisar que el usuario esta creado 
     const createUser = () => {
         fetch(url + user, {
             method: "POST",
@@ -113,8 +114,6 @@ function TodoComponents2() {
 
 
     };
-
-    console.log({ tareas });
     // gettareas tiene que traer las tareas del usuario cada vez que se recargue la pag. o se cree un usuario 
     //nuevamente. si no puede traer las tareas porque no hay usuario creado lo crea y recupera sus tareas 
     const getTareas = () => {
@@ -237,52 +236,29 @@ function TodoComponents2() {
                                 text={input}
                                 setInput={setInput}
                             />
-                            {/* <table className='text-secondary table mb-0 '>
-                                <tbody>
-                                    {
-                                        // tareas?.map((tarea, i) => {
-                                        //     <Todos
-                                        //         key={i}
-                                        //         text={tarea.label}
-                                        //         deleteTareaById={deleteTareaById}
-                                        //     />
-                                        // })
-                                    }
-                                    {tareas.length > 0 &&
-                                    
-                                        <h2>
-                                            You have {tareas.length} todos left.
-                                            {console.log('leftlog ',tareas)}
-                                        </h2>
-                                    }
-                                    <TodosLeft
-                                        tareas={tareas}
-                                    />
-                                </tbody>
-                            </table> */}
                             <ul className="list-group">
                                 {!!loggedIn &&
                                     tareas?.length > 0 ?
                                     tareas?.map((tarea, i) => {
                                         return (
-                                            <li key={i}
-                                                className="list-group-item d-flex justify-content-between">
-                                                {tarea.label}
-                                                <button className='btn btn-secondary'
-                                                    onClick={() => deleteTareaById(tarea.id)}>cerrar</button>
-                                            </li>
+                                            <>
+                                                <Todos
+                                                    key={i}
+                                                    text={tarea.label}
+                                                    id={tarea.id}
+                                                    deleteTareaById={deleteTareaById}
+                                                />
+
+                                            </>
                                         )
                                     })
                                     :
                                     <li className="list-group-item">La lista esta vacía, agrega tu primera tarea!</li>
                                 }
                                 {tareas?.length > 0 &&
-                                    <li className="list-group-item">
-                                        You have {tareas.length} todos left.
-                                        {/* {console.log('leftlog ',tareas)} */}
-                                    </li>
+                                    <TodosLeft
+                                    tareas={tareas} />
                                 }
-
                             </ul>
                         </div>
 
@@ -291,7 +267,6 @@ function TodoComponents2() {
             </div>
             <div className="d-flex d-flex justify-content-evenly my-5">
                 {
-                    //si no hay user crear uno 
                     !loggedIn ?
                         <button
                             className='btn btn-light border border-secondary shadow mb-5 rounded'
